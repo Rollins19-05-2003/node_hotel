@@ -41,5 +41,5 @@ const menuRoutes = require('./routes/menuRoutes');
 app.use('/person',personRoutes);
 app.use('/menuItem', menuRoutes);
 
-
+// commenting for testing purpose whther git is tracking or not
 app.listen(port,()=>{console.log(`Server running on port ${port}`)});
