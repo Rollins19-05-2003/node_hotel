@@ -26,21 +26,34 @@ const app = express();
 const db = require('./db');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
+const passport = require('./auth');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-app.get('/', (req,res)=>{
+// ------------------------ Password Authentication and Encryption ------------------------
+app.use(passport.initialize());
+const localAuthMiddleware = passport.authenticate('local',{session:false});
+
+// ------------------------ middleware function ------------------------
+const logRequest = (req,res,next)=>{
+  console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`)
+  next();
+}
+app.use(logRequest);
+
+
+app.get('/' ,(req,res)=>{
   res.send("Welcome to our hotel! How can we help you?");
 })
 
-// Import the router files
+// ------------------------ Import the router files ------------------------
 const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 
-// use the routers
-app.use('/person',personRoutes);
+// ------------------------ use the routers ------------------------
+app.use('/person',localAuthMiddleware,personRoutes);
 app.use('/menuItem', menuRoutes);
 
-// commenting for testing purpose whther git is tracking or not
+// commenting for testing purpose whther git is tracking or not 
 app.listen(port,()=>{console.log(`Server running on port ${port}`)});

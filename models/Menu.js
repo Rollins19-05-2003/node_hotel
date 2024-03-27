@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define the menu schema
+// ------------------------ Define the menu schema ------------------------
 const menuSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -28,6 +28,6 @@ const menuSchema = new mongoose.Schema({
         default:0
     }
 })
-//Define the Person Model
+// ------------------------ Define the Menu Model ------------------------
 const Menu = mongoose.model('Menu',menuSchema);
 module.exports = Menu;
