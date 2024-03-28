@@ -35,6 +35,9 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 const localAuthMiddleware = passport.authenticate('local',{session:false});
 
+// ------------------------ Token Based Authentication and Authorization ------------------------
+
+
 // ------------------------ middleware function ------------------------
 const logRequest = (req,res,next)=>{
   console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`)
@@ -50,9 +53,10 @@ app.get('/' ,(req,res)=>{
 // ------------------------ Import the router files ------------------------
 const personRoutes = require('./routes/personRoutes');
 const menuRoutes = require('./routes/menuRoutes');
+const { JsonWebTokenError } = require('jsonwebtoken');
 
 // ------------------------ use the routers ------------------------
-app.use('/person',localAuthMiddleware,personRoutes);
+app.use('/person', personRoutes);
 app.use('/menuItem', menuRoutes);
 
 // commenting for testing purpose whther git is tracking or not 
