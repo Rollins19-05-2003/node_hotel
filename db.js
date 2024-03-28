@@ -7,8 +7,10 @@ const mongoURL =  process.env.MONGODB_URL
 
 // replace hotels with your database name
 mongoose.connect(mongoURL,{
-    useNewUrlParser : true,
-    useUnifiedTopology:true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
 })
 // ------------------------ Get the default Connection ------------------------
 //mongoose maintains a default connection object representing the MongoDB connection
